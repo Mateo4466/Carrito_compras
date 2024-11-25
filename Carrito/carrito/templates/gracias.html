@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gracias por tu compra</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="alert alert-success text-center" role="alert">
+            <h2>¡Gracias por tu compra!</h2>
+            <p>Tu pago ha sido procesado correctamente.</p>
+            <hr>
+            <p>Nos alegra que hayas confiado en nosotros. ¡Esperamos verte pronto de nuevo!</p>
+        </div>
+
+        <div class="row text-center mt-4">
+            <div class="col-12">
+                <a href="{% url 'Tienda' %}" class="btn btn-primary btn-lg">Volver a la Tienda</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

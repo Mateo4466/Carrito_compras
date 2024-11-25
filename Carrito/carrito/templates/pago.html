@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar - Carrito de Compras</title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="alert alert-primary" role="alert">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="row" colspan="3" class="text-center">Resumen del Carrito</th>
+                </tr>
+                <tr>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">PRECIO</th>
+                    <th scope="col">CANTIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if productos_carrito %}
+                {% for key, value in productos_carrito.items %}
+                    <tr>
+                        <td>{{value.nombre}}</td>
+                        <td>${{value.acumulado}}</td>
+                        <td>{{value.cantidad}}</td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">
+                        <div class="alert alert-danger text-center">Sin Productos en el Carrito</div>
+                    </td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th scope="row">Total:</th>
+                    <td colspan="2">${{total_carrito}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-12">
+            <form method="post" action="{% url 'Confirmar Pago' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="metodo_pago">Método de Pago</label>
+                    <select class="form-control" id="metodo_pago" name="metodo_pago">
+                        <option value="Tarjeta">Tarjeta de Crédito/Débito</option>
+                        <option value="MercadoPago">MercadoPago</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success mt-3" {% if not carrito.tiene_productos %} disabled {% endif %}>Confirmar Pago</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center mt-3">
+    <div class="col-12">
+        <a href="{% url 'Tienda' %}" class="btn btn-primary btn-sm">Volver a la Tienda</a>
+    </div>
+</div>
+
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

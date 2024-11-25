@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Bienvenido a la Tienda</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row mb-4 text-center">
+            <div class="col-12">
+                <h1 class="titulo-libreria" class="display-3 font-weight-bold">LIBRERÍA</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    {% for producto in productos %}
+                    <div class="col-sm-6 col-lg-4 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{producto.nombre}}</h5>
+                                <p class="card-text">{{producto.categoria}}</p>
+                                <p class="card-text"><strong>${{producto.precio}}</strong></p>
+                                <p class="card-text">Stock: {{ producto.stock }}</p>
+                                {% if producto.stock > 0 %}
+                                     <a href="{% url 'Add' producto.id %}" class="btn btn-primary">Agregar al carrito</a>
+                                {% else %}
+                                    <button class="btn btn-secondary" disabled>Sin stock</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="sticky-top">
+                    {% include "carrito.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
