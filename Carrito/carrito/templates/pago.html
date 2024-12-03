@@ -7,7 +7,7 @@
     <title>Pagar - Carrito de Compras</title>
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    <link href="{% static 'css/pago.css' %}" rel="stylesheet">
     
 </head>
 <body>
@@ -54,19 +54,41 @@
         <div class="col-12">
             <form method="post" action="{% url 'Confirmar Pago' %}">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="metodo_pago">Método de Pago</label>
+                <label for="metodo_pago">Método de Pago</label>
                     <select class="form-control" id="metodo_pago" name="metodo_pago">
                         <option value="Tarjeta">Tarjeta de Crédito/Débito</option>
                         <option value="MercadoPago">MercadoPago</option>
                     </select>
-                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="nombre_comprador">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre_comprador" name="nombre_comprador" 
+                            required pattern="[A-Za-zÀ-ÿ\s]+" required minlength="6" maxlength="100"  
+                            placeholder="Ingrese su nombre completo" title="olo se permiten letras y espacios">
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="correo" name="correo" 
+                            required minlength="5" maxlength="100" 
+                            required placeholder="Ingrese su correo electrónico">
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion_envio">Dirección de Envío</label>
+                        <input type="direccion" class="form-control" id="direccion_envio" name="direccion_envio" 
+                            required minlength="5" maxlength="100" 
+                            placeholder="Ingrese su dirección de envío"></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono de Contacto</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" 
+                            required pattern="[0-9]{10}" title="Debe ingresar 10 dígitos numéricos" 
+                            placeholder="Ingrese su número de teléfono">
+                    </div>
+                <class="form-group">
                 <button type="submit" class="btn btn-success mt-3" {% if not carrito.tiene_productos %} disabled {% endif %}>Confirmar Pago</button>
-
             </form>
         </div>
     </div>
-</div>
 
 <div class="row text-center mt-3">
     <div class="col-12">
